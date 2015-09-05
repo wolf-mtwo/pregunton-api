@@ -1,0 +1,14 @@
+Content-Type
+application/json; charset=utf-8
+
+<Directory />
+    Options FollowSymLinks
+    AllowOverride All
+    Order deny,allow
+    Deny from all
+</Directory>
+
+<Directory />
+    Order deny,allow
+    Allow from 192.168.0
+</Directory>
