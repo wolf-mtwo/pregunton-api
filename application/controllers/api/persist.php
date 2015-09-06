@@ -10,6 +10,7 @@ class Persist extends APIMaster_Controller
     parent::__construct();
     $this->load->database();
     $this->load->model('book');
+    $this->load->model('participant');
   }
 
   function books_post()
@@ -33,5 +34,33 @@ class Persist extends APIMaster_Controller
   function books_put()
   {
     $this->update('book');
+  }
+
+  // participants
+  function participants_post()
+  {
+    $this->save('participant');
+  }
+
+  function participants_get()
+  {
+    if($this->get('id')) {
+      $this->load('participant', 'id');
+    }
+    $this->get_all('participant');
+  }
+  function participants_options()
+  {
+    $this->response(null, 200);
+  }
+
+  function participants_delete()
+  {
+    $this->delete('participant');
+  }
+
+  function participants_put()
+  {
+    $this->update('participant');
   }
 }

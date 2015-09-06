@@ -88,7 +88,7 @@ class Master extends CI_Model {
     $this->get_by_id($id);
     $this->db->where('id', $id);
     foreach ($values as $key => $type) {
-      if (!isset($this->schema[$key])) {
+      if ($key != 'id' && !isset($this->schema[$key])) {
         throw new Exception("this variable '$key' is not defined on the schema");
       }
     }

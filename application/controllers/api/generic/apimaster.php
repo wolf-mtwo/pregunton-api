@@ -11,7 +11,8 @@ class APIMaster_Controller extends REST_Controller
     //TODO
     //FIXME
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
+    header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS');
+    header('Access-Control-Allow-Credentials: true');
   }
 
   /**

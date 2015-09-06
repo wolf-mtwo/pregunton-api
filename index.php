@@ -18,6 +18,11 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
+ header("Access-Control-Allow-Origin: *");
+ header("Access-Control-Allow-Credentials: true ");
+ header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
+ header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size,
+ X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");
 	define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
@@ -35,7 +40,7 @@ if (defined('ENVIRONMENT'))
 		case 'development':
 			error_reporting(E_ALL);
 		break;
-	
+
 		case 'testing':
 		case 'production':
 			error_reporting(0);
