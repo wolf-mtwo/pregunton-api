@@ -2,7 +2,7 @@
 
 require_once APPPATH.'/controllers/api/generic/apimaster.php';
 
-class Book extends APIMaster_Controller
+class Books extends APIMaster_Controller
 {
   function __construct()
   {
@@ -23,6 +23,7 @@ class Book extends APIMaster_Controller
       $this->load('question', 'id');
     }
     $this->get_all('question');
+    // $this->get_all('question', 'bookId');
   }
 
   function questions_delete()
@@ -33,5 +34,9 @@ class Book extends APIMaster_Controller
   function questions_put()
   {
     $this->update('question');
+  }
+  function questions_options()
+  {
+    $this->response(null, 200);
   }
 }
