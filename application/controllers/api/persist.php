@@ -36,6 +36,11 @@ class Persist extends APIMaster_Controller
     $this->update('book');
   }
 
+  function books_options()
+  {
+    $this->response(null, 200);
+  }
+
   // participants
   function participants_post()
   {
@@ -49,6 +54,7 @@ class Persist extends APIMaster_Controller
     }
     $this->get_all('participant');
   }
+
   function participants_options()
   {
     $this->response(null, 200);
