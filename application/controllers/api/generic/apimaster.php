@@ -63,7 +63,7 @@ class APIMaster_Controller extends REST_Controller
       $item_id = $this->get($id);
       $this->get_params_validator($item_id, $id);
       $this->model_name_validator($model, 'model');
-      $item = $this->$model->delete($id);
+      $item = $this->$model->delete($item_id);
       $this->response($item, 200);
     } catch (Exception $e) {
       $this->response(array("error" => $e->getMessage()), 500);
