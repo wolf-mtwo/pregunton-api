@@ -6,7 +6,9 @@ class Participant extends Master {
 
   private $schema = array(
     'name' => 'string',
-    'score' => 'number'
+    'score' => 'number',
+    'userId' => 'number',
+    'bookId' => 'number'
   );
 
   function __construct()

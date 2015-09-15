@@ -7,7 +7,8 @@ class User extends Master {
   private $schema = array(
     'name' => "string",
     'email' => "string",
-    'password' => "string"
+    'password' => "string",
+    'userId' => "number"
   );
 
   function __construct()
