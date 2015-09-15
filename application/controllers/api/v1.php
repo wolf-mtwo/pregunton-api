@@ -35,48 +35,8 @@ class V1 extends APIMaster_Controller
     $this->update('user');
   }
 
-  function login_get()
+  function users_options()
   {
-    try {
-      $user = $this->get_user();
-      $this->response($user, 200);
-    } catch (Exception $e) {
-      $this->response(array("error" => $e->getMessage()), 500);
-    }
-  }
-
-  function login_post()
-  {
-    try {
-      $session = (array)json_decode(file_get_contents("php://input"));
-      if (!$session['email']) {
-        throw new Exception('should provide a valid email');
-      }
-      if (!$session['password']) {
-        throw new Exception('should provide a valid password');
-      }
-      $where = array(
-        'email' => $session['email'],
-        'password' => $session['password']
-      );
-      $user = $this->user->find_one($session);
-      if (!$user) {
-        throw new Exception('user not found');
-      }
-      $this->set_user($user);
-      $this->response($user, 200);
-    } catch (Exception $e) {
-      $this->response(array("error" => $e->getMessage()), 500);
-    }
-  }
-
-  function logout_post()
-  {
-    try {
-      $this->close_session();
-      $this->response(null, 200);
-    } catch (Exception $e) {
-      $this->response(array("error" => $e->getMessage()), 500);
-    }
+    $this->response(null, 200);
   }
 }
