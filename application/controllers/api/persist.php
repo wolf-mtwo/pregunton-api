@@ -9,36 +9,7 @@ class Persist extends APIMaster_Controller
     // Construct our parent class
     parent::__construct();
     $this->load->database();
-    $this->load->model('book');
     $this->load->model('participant');
-  }
-
-  function books_post()
-  {
-    $this->save('book');
-  }
-
-  function books_get()
-  {
-    if($this->get('id')) {
-      $this->load('book', 'id');
-    }
-    $this->get_all('book');
-  }
-
-  function books_delete()
-  {
-    $this->delete('book');
-  }
-
-  function books_put()
-  {
-    $this->update('book');
-  }
-
-  function books_options()
-  {
-    $this->response(null, 200);
   }
 
   // participants

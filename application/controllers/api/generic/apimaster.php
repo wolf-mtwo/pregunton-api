@@ -117,10 +117,10 @@ class APIMaster_Controller extends REST_Controller
   // session
   function get_user()
   {
-    $user = $_SESSION['user'];
-    if (!$user) {
+    if (empty($_SESSION['user'])) {
       throw new Exception('session does not exist');
     }
+    $user = $_SESSION['user'];
     return $user;
   }
 

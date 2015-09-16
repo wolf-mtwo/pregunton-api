@@ -19,7 +19,7 @@ class Master extends CI_Model {
     $this->schema = $schema;
   }
 
-  // gets persons
+  // gets all items related with this database table
   function get_all()
   {
     return $this->db->get($this->tbl)->result();
@@ -79,19 +79,9 @@ class Master extends CI_Model {
     if (empty($id)) {
       throw new Exception('id is undefined');
     }
-    if (!is_array($values)) {
-      throw new Exception('values is not arrray');
-    }
-    if (!count($values)) {
-      throw new Exception('update values should contains at least one valid element');
-    }
+    $this->validate_schema($values);
     $this->get_by_id($id);
     $this->db->where('id', $id);
-    foreach ($values as $key => $type) {
-      if ($key != 'id' && !isset($this->schema[$key])) {
-        throw new Exception("this variable '$key' is not defined on the schema");
-      }
-    }
     $this->db->update($this->tbl, $values);
     return $this->get_by_id($id);
   }
@@ -112,8 +102,31 @@ class Master extends CI_Model {
     return $this->db->count_all($this->tbl_person);
   }
 
-  function get_paged_list($limit = 10, $offset = 0){
+  function get_paged_list($limit = 10, $offset = 0)
+  {
     $this->db->order_by('id','asc');
     return $this->db->get($this->tbl_person, $limit, $offset);
+  }
+
+  function validate_schema($values)
+  {
+    if (!is_array($values)) {
+      throw new Exception('values is not array');
+    }
+    if (!count($values)) {
+      throw new Exception('update values should contains at least one valid element');
+    }
+
+    // foreach ($values as $key => $type) {
+    //   if ($key != 'id' && !isset($this->schema[$key])) {
+    //     throw new Exception("this variable '$key' is not defined on the schema");
+    //   }
+    // }
+    foreach ($this->schema as $key => $type) {
+      if (!isset($values[$key])) {
+        throw new Exception('should provide the "' .
+          $key . '" on the request');
+      }
+    }
   }
 }
