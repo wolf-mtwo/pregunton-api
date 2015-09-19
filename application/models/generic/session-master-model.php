@@ -14,11 +14,7 @@ class SessionMasterModel extends Master {
 
   function load_user()
   {
-    try {
-      $this->auth = $this->validate_user($this->get_user());
-    } catch (Exception $e) {
-      $this->response(array("error" => $e->getMessage()), 401);
-    }
+    $this->auth = $this->validate_user($this->get_user());
   }
 
   // session
@@ -38,9 +34,6 @@ class SessionMasterModel extends Master {
     }
     if (empty($user['email'])) {
       throw new Exception('email does not exist');
-    }
-    if (empty($user['password'])) {
-      throw new Exception('password does not exist');
     }
     if (empty($user['name'])) {
       throw new Exception('name does not exist');

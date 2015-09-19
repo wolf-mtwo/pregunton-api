@@ -9,6 +9,7 @@ class SessionMaster_Controller extends APIMaster_Controller
   function __construct()
   {
     parent::__construct();
+    $this->validate_token();
     $this->load_user();
   }
 
@@ -29,9 +30,6 @@ class SessionMaster_Controller extends APIMaster_Controller
     if (empty($user['email'])) {
       throw new Exception('email does not exist');
     }
-    if (empty($user['password'])) {
-      throw new Exception('password does not exist');
-    }
     if (empty($user['name'])) {
       throw new Exception('name does not exist');
     }
@@ -39,5 +37,15 @@ class SessionMaster_Controller extends APIMaster_Controller
       throw new Exception('cel does not exist');
     }
     return $user;
+  }
+
+  private function validate_token()
+  {
+    $headers = getallheaders();
+    if (!empty($headers['x-access-token'])) {
+      $token = $headers['x-access-token'];
+      session_id($token);
+      session_start();
+    }
   }
 }

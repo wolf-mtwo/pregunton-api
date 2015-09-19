@@ -8,33 +8,37 @@ class Example extends AnonymousMaster_Controller
   {
     // Construct our parent class
     parent::__construct();
-    // $this->load->database();
-    // $this->load->model('user');
-  }
-
-  // function demo_get()
-  // {
-  //
-  //   // $this->save_data('user');
-  // }
-
-  function index() {
-      if ($this->auth->loggedin())
-          redirect('admin');
-      else
-          $this->load->view('admin/login');
   }
 
   function demo_get() {
-      $username = $this->input->post('username');
-      $password = $this->input->post('password');
-      $remember = $this->input->post('remember') ? TRUE : FALSE;
+    $headers = getallheaders();
+    if (empty($headers['x-access-token'])) {
+         echo "yes";
+      } else {
+         echo 'false';
+         $token = $headers['x-access-token'];
+         print_r($token);
+         session_id($token);
+         session_start();
+      }
+    var_dump($_SESSION);
+    $session_id = session_id();
+    $data = [
+        'data' => $session_id,
+      ];
+    $this->response($data, 200);
+  }
 
-      if ($this->auth->authenticate($username, $password, $remember))
-          //redirect('admin');
-          echo "si";
-      else
-        echo "no";
-          //redirect('admin/login');
+  function demo_post() {
+    $code = $this->post('code');
+    //$token = hash_hmac('sha512', $id, $key);
+    session_id($code);
+    session_start();
+    $session_id = session_id();
+    $_SESSION['token'] = $code;
+    $data = [
+        'data' => $session_id,
+      ];
+    $this->response($data, 200);
   }
 }

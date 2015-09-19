@@ -36,10 +36,18 @@ class Session extends AnonymousMaster_Controller
         'password' => $session['password']
       );
       $user = $this->user->find_one($session);
+
       if (!$user) {
         throw new Exception('user not found');
       }
+      //FIXME
+      unset($user['password']);
       $this->set_user($user);
+
+      //generate token
+      $token = $this->generate_token($user);
+      $user['token'] = $token;
+
       $this->response($user, 200);
     } catch (Exception $e) {
       $this->response(array("error" => $e->getMessage()), 500);
@@ -59,5 +67,13 @@ class Session extends AnonymousMaster_Controller
   function login_options()
   {
     $this->response(null, 200);
+  }
+
+  function generate_token($user)
+  {
+    $token = hash_hmac('sha512', $user['id'], $user['email']);
+    session_id($token);
+    session_start();
+    return session_id();
   }
 }

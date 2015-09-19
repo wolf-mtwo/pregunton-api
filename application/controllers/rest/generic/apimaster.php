@@ -7,7 +7,6 @@ class APIMaster_Controller extends REST_Controller
 {
   function __construct()
   {
-    session_start();
     parent::__construct();
     //TODO
     //FIXME
