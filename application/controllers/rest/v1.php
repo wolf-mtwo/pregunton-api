@@ -11,8 +11,8 @@ class V1 extends SessionMaster_Controller
     $this->load->database();
     $this->load_model('book', $this->auth);
     $this->load_model('user', $this->auth);
-    $this->load->model('participant', $this->auth);
-    $this->load->model('question', $this->auth);
+    $this->load_model('participant', $this->auth);
+    $this->load_model('question', $this->auth);
   }
 
   ///////////////////////////////////// BOOKS

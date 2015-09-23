@@ -41,13 +41,14 @@ class Session extends AnonymousMaster_Controller
       if (!$user) {
         throw new Exception('user not found');
       }
-      //FIXME
-      unset($user['password']);
-      $this->set_user($user);
 
       //generate token
       $token = $this->generate_token($user);
       $user['token'] = $token;
+
+      //FIXME
+      unset($user['password']);
+      $this->set_user($user);
 
       $this->response($user, 200);
     } catch (Exception $e) {
