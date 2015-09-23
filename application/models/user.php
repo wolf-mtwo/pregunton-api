@@ -8,7 +8,7 @@ class User extends Master {
     'name' => "string",
     'email' => "string",
     'password' => "string",
-    'userId' => "number"
+    'cel' => "number"
   );
 
   function __construct()

@@ -3,53 +3,12 @@ require_once APPPATH.'/models/generic/master.php';
 
 class SessionMasterModel extends Master {
 
-  // table name
-  private $auth = null;
-
   function __construct($table_name, $schema)
   {
     parent::__construct($table_name, $schema);
-    $this->load_user();
   }
 
-  function load_user()
-  {
-    try {
-      $this->auth = $this->validate_user($this->get_user());
-    } catch (Exception $e) {
-      $this->response(array("error" => $e->getMessage()), 401);
-    }
-  }
 
-  // session
-  function get_user()
-  {
-    if (empty($_SESSION['user'])) {
-      throw new Exception('session does not exist');
-    }
-    $user = $_SESSION['user'];
-    return $user;
-  }
-
-  private function validate_user($user)
-  {
-    if (empty($user['id'])) {
-      throw new Exception('id does not exist');
-    }
-    if (empty($user['email'])) {
-      throw new Exception('email does not exist');
-    }
-    if (empty($user['password'])) {
-      throw new Exception('password does not exist');
-    }
-    if (empty($user['name'])) {
-      throw new Exception('name does not exist');
-    }
-    if (empty($user['cel'])) {
-      throw new Exception('cel does not exist');
-    }
-    return $user;
-  }
 
   /////////////////////////// CRUD
   // gets all items related with this database table
@@ -58,11 +17,11 @@ class SessionMasterModel extends Master {
   //   return parent::get_all();
   // }
 
-  function save($item)
-  {
-    $item['userId'] = $this->auth['id'];
-    return parent::save($item);
-  }
+  // function save($item)
+  // {
+  ////   $item['userId'] = $this->auth['id'];
+  //   return parent::save($item);
+  // }
 
   // function get_by_id($id)
   // {
