@@ -13,7 +13,7 @@ class APIMaster_Controller extends REST_Controller
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT, OPTIONS');
     header('Access-Control-Allow-Credentials: true');
-    header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");
+    header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control, x-access-token");
   }
 
   /**
@@ -155,5 +155,59 @@ class APIMaster_Controller extends REST_Controller
     if (empty($var)) {
       throw new Exception("you should provide '$value' on the indexed on the url");
     }
+  }
+
+  // Load model
+  function load_model($model_name, $data = null)
+  {
+    $this->load->model($model_name);
+    if (!empty($data)) {
+      $this->$model_name->init($data);
+    }
+  }
+
+  // Validate session
+  function load_session()
+  {
+    $this->validate_token();
+    $this->validate_session();
+  }
+
+  private function validate_token()
+  {
+    $headers = getallheaders();
+    if (!empty($headers['x-access-token'])) {
+      $token = $headers['x-access-token'];
+      session_id($token);
+      session_start();
+    } else {
+      throw new Exception('x-access-token is not initialized');
+    }
+  }
+
+  function validate_session()
+  {
+    try {
+      $this->auth = $this->validate_user($this->get_user());
+    } catch (Exception $e) {
+      $this->response(array("error" => $e->getMessage()), 401);
+    }
+  }
+
+  private function validate_user($user)
+  {
+    if (empty($user['id'])) {
+      throw new Exception('id does not exist');
+    }
+    if (empty($user['email'])) {
+      throw new Exception('email does not exist');
+    }
+    if (empty($user['name'])) {
+      throw new Exception('name does not exist');
+    }
+    if (empty($user['cel'])) {
+      throw new Exception('cel does not exist');
+    }
+    return $user;
   }
 }

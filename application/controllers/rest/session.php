@@ -14,6 +14,7 @@ class Session extends AnonymousMaster_Controller
   function login_get()
   {
     try {
+      $this->load_session();
       $user = $this->get_user();
       $this->response($user, 200);
     } catch (Exception $e) {

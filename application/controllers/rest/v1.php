@@ -9,8 +9,10 @@ class V1 extends SessionMaster_Controller
     // Construct our parent class
     parent::__construct();
     $this->load->database();
-    $this->load->model('book');
-    $this->load->model('user');
+    $this->load_model('book', $this->auth);
+    $this->load_model('user', $this->auth);
+    $this->load->model('participant', $this->auth);
+    $this->load->model('question', $this->auth);
   }
 
   ///////////////////////////////////// BOOKS
@@ -38,6 +40,64 @@ class V1 extends SessionMaster_Controller
   }
 
   function books_options()
+  {
+    $this->response(null, 200);
+  }
+
+  ///////////////////////////////// participants
+  function participants_post()
+  {
+    $this->save_data('participant');
+  }
+
+  function participants_get()
+  {
+    if($this->get('id')) {
+      $this->load_data('participant', 'id');
+    }
+    $this->get_all_data('participant');
+  }
+
+  function participants_options()
+  {
+    $this->response(null, 200);
+  }
+
+  function participants_delete()
+  {
+    $this->delete_data('participant');
+  }
+
+  function participants_put()
+  {
+    $this->update_data('participant');
+  }
+
+  /////////////////////////////// QUESTION
+  function questions_post()
+  {
+    $this->save('question');
+  }
+
+  function questions_get()
+  {
+    if($this->get('id')) {
+      $this->load_data('question', 'id');
+    }
+    $this->get_all_data('question');
+    // $this->get_all('question', 'bookId');
+  }
+
+  function questions_delete()
+  {
+    $this->delete_data('question');
+  }
+
+  function questions_put()
+  {
+    $this->update_data('question');
+  }
+  function questions_options()
   {
     $this->response(null, 200);
   }

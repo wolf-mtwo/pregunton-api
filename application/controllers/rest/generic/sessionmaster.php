@@ -5,47 +5,14 @@ require_once APPPATH.'/controllers/rest/generic/apimaster.php';
 
 class SessionMaster_Controller extends APIMaster_Controller
 {
-  private $auth = null;
+  protected $auth = null;
   function __construct()
   {
     parent::__construct();
-    $this->validate_token();
-    $this->load_user();
-  }
-
-  function load_user()
-  {
-    try {
-      $this->auth = $this->validate_user($this->get_user());
-    } catch (Exception $e) {
-      $this->response(array("error" => $e->getMessage()), 401);
-    }
-  }
-
-  private function validate_user($user)
-  {
-    if (empty($user['id'])) {
-      throw new Exception('id does not exist');
-    }
-    if (empty($user['email'])) {
-      throw new Exception('email does not exist');
-    }
-    if (empty($user['name'])) {
-      throw new Exception('name does not exist');
-    }
-    if (empty($user['cel'])) {
-      throw new Exception('cel does not exist');
-    }
-    return $user;
-  }
-
-  private function validate_token()
-  {
-    $headers = getallheaders();
-    if (!empty($headers['x-access-token'])) {
-      $token = $headers['x-access-token'];
-      session_id($token);
-      session_start();
+    // $method = $this->router->fetch_method();
+    $method_type = $this->_detect_method();
+    if ($method_type != "options") {
+      $this->load_session();
     }
   }
 }
