@@ -1,5 +1,4 @@
 <?php
-
 require_once APPPATH . '/models/generic/master.php';
 
 class User extends Master {

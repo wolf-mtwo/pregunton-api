@@ -1,15 +1,15 @@
 <?php
+require_once APPPATH . '/models/generic/session-master-model.php';
 
-require_once APPPATH . '/models/generic/master.php';
-
-class Question extends Master {
+class Question extends SessionMasterModel {
 
   private $schema = array(
     'bookId' => 'number',
     'title' => 'string',
     'type' => 'string',
     'chapter' => 'number',
-    'response' => 'string'
+    'response' => 'string',
+    'userId' => 'number'
   );
 
   function __construct()

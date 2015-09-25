@@ -74,6 +74,9 @@ class APIMaster_Controller extends REST_Controller
   function get_all_data($model, $params = array())
   {
     try {
+      if (!is_array($params)) {
+        throw new Exception("query params is not array");
+      }
       $get_params = $this->get();
       $where = $this->get_inputs($params);
       $response = $this->$model->find($where);

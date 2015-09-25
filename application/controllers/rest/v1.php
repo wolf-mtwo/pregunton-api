@@ -55,7 +55,9 @@ class V1 extends SessionMaster_Controller
     if($this->get('id')) {
       $this->load_data('participant', 'id');
     }
-    $this->get_all_data('participant');
+    // $this->get_all_data('participant');
+    $where = array('bookId');
+    $this->get_all_data('participant', $where);
   }
 
   function participants_options()
@@ -76,7 +78,7 @@ class V1 extends SessionMaster_Controller
   /////////////////////////////// QUESTION
   function questions_post()
   {
-    $this->save('question');
+    $this->save_data('question');
   }
 
   function questions_get()
@@ -84,8 +86,9 @@ class V1 extends SessionMaster_Controller
     if($this->get('id')) {
       $this->load_data('question', 'id');
     }
-    $this->get_all_data('question');
-    // $this->get_all('question', 'bookId');
+    //$this->get_all_data('question');
+    $where = array('bookId');
+    $this->get_all_data('question', $where);
   }
 
   function questions_delete()

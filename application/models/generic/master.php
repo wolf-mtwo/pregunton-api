@@ -4,7 +4,7 @@ class Master extends CI_Model {
 
   // table name
   private $tbl = null;
-  private $auth = null;
+  protected $auth_user = null;
   private $schema = null;
   private $type_var = array('string', 'number');
 
@@ -21,7 +21,7 @@ class Master extends CI_Model {
   }
 
   function init($user) {
-    $this->auth = $user;
+    $this->auth_user = $user;
   }
 
   // gets all items related with this database table
