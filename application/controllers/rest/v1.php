@@ -56,7 +56,7 @@ class V1 extends SessionMaster_Controller
       $this->load_data('participant', 'id');
     }
     // $this->get_all_data('participant');
-    $where = array('bookId');
+    $where = array('bookId', 'userId');
     $this->get_all_data('participant', $where);
   }
 
