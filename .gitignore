@@ -28,9 +28,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 
 # Local
-new
-old
 public/assets/img/store
-system
 user_guide
 *.rar
