@@ -62,7 +62,7 @@ class SessionMasterModel extends Master {
   function validate_action($values)
   {
     $this->validate_schema($values);
-    if ($values['userId'] != $this->auth['id']) {
+    if ($values['userId'] != $this->auth_user['id']) {
       throw new Exception('current user is not owner of this object');
     }
     return $values;

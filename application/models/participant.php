@@ -1,8 +1,7 @@
 <?php
+require_once APPPATH . '/models/generic/session-master-model.php';
 
-require_once APPPATH . '/models/generic/master.php';
-
-class Participant extends Master {
+class Participant extends SessionMasterModel {
 
   private $schema = array(
     'name' => 'string',

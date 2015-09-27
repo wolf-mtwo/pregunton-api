@@ -1,6 +1,9 @@
 Content-Type
 application/json; charset=utf-8
 
+Version
+CodeIgniter-3.0.1
+
 <Directory />
     Options FollowSymLinks
     AllowOverride All
